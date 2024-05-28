@@ -12,6 +12,7 @@ class Training extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // 아 플러터 너무 쉽다...!!
             SizedBox(height: 30),
             ZimpleWidgets.zContainer(
               borderRadius: 15,
