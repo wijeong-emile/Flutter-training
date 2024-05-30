@@ -9,47 +9,49 @@ class Training extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         minimum: EdgeInsets.symmetric(vertical: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // 아 플러터 너무 쉽다...!!
-            SizedBox(height: 30),
-            ZimpleWidgets.zContainer(
-              borderRadius: 15,
-              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              padding:
-                  EdgeInsets.only(top: 10, left: 20, bottom: 30, right: 40),
-              backgroundColor: Colors.yellowAccent,
-              sideColor: Colors.blue,
-              sideWidth: 2,
-              child: ZimpleWidgets.zContainer(
-                width: 200,
-                height: 100,
-                alignment: Alignment.center,
-                backgroundColor: Colors.amber,
-                child: ZimpleWidgets.zText(
-                  '텍스트',
-                  color: Colors.black,
-                  fontSize: 16,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 30),
+              ZimpleWidgets.zContainer(
+                borderRadius: 15,
+                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding:
+                    EdgeInsets.only(top: 10, left: 20, bottom: 30, right: 40),
+                backgroundColor: Colors.yellowAccent,
+                sideColor: Colors.blue,
+                sideWidth: 2,
+                child: ZimpleWidgets.zContainer(
+                  width: 200,
+                  height: 100,
+                  alignment: Alignment.center,
+                  backgroundColor: Colors.amber,
+                  child: ZimpleWidgets.zText(
+                    '텍스트',
+                    color: Colors.black,
+                    fontSize: 16,
+                  ),
                 ),
               ),
-            ),
-            StatefulTraining(),
-            SizedBox(height: 10),
-            Expanded(
-                child: ListView.separated(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    itemBuilder: (itemBuilder, index) {
-                      return listItem(itemBuilder, index);
-                    },
-                    separatorBuilder: (separatorBuilder, index) {
-                      return ZimpleWidgets.zContainer(
-                          margin: EdgeInsets.symmetric(vertical: 5),
-                          backgroundColor: Colors.white,
-                          height: 1);
-                    },
-                    itemCount: 100))
-          ],
+              StatefulTraining(),
+              SizedBox(height: 10),
+              ListView.separated(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  itemBuilder: (itemBuilder, index) {
+                    return listItem(itemBuilder, index);
+                  },
+                  separatorBuilder: (separatorBuilder, index) {
+                    return ZimpleWidgets.zContainer(
+                        margin: EdgeInsets.symmetric(vertical: 5),
+                        backgroundColor: Colors.white,
+                        height: 1);
+                  },
+                  itemCount: 100)
+            ],
+          ),
         ),
       ),
     );
@@ -116,8 +118,17 @@ class _StatefulTrainingState extends State<StatefulTraining> {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
-          ZimpleWidgets.zText('카운터 : $counter',
-              color: Colors.white, useBold: true),
+          if (counter % 5 != 0) ...{
+            ZimpleWidgets.zText('카운터 : $counter',
+                color: Colors.white, useBold: true),
+          } else ...{
+            ZimpleWidgets.zContainer(
+              width: 150,
+              height: 48,
+              backgroundColor: Colors.amber,
+              borderRadius: 10,
+            )
+          },
           SizedBox(height: 16),
           ZimpleWidgets.zTextButton(
             onPressed: () {
